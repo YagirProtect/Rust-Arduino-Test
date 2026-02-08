@@ -37,6 +37,9 @@ impl IoUno {
     }
 
 
+    pub fn get_serial(&mut self) -> &mut Usart<USART0, Pin<Input, PD0>, Pin<Output, PD1>, DefaultClock>{
+        return &mut self.serial;
+    }
     pub fn log(&mut self) {
         let _ = uwriteln!(&mut self.serial, "{}", self.string.as_str());
     }
