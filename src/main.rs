@@ -7,10 +7,12 @@ use crate::joystick::Joystick;
 
 mod std;
 mod joystick;
+mod water_sensor;
 
 use crate::std::global_timer::GlobalTimer;
 use crate::std::io::IoUno;
 use crate::std::std::enable_interrupts;
+use crate::water_sensor::WaterSensorBFS;
 
 #[arduino_hal::entry]
 fn main() -> ! {
@@ -23,20 +25,18 @@ fn main() -> ! {
     enable_interrupts();
 
 
+    let mut power = pins.d7.into_output();
     let analog0 = pins.a0.into_analog_input(&mut adc);
-    let analog1 = pins.a1.into_analog_input(&mut adc);
-    let button = pins.d7.into_pull_up_input();
-    let mut joystick = Joystick::new(Some(analog0), Some(analog1), Some(button), 8);
+
+    let mut water_sensor = WaterSensorBFS::new(power, analog0, 500);
+
 
     loop {
         let now = timer.millis();
-        joystick.update(now, &mut adc);
+        water_sensor.update(now, &mut adc);
 
-        write!(io.str(), "{}, {}, {}", joystick.x_raw(), joystick.y_raw(), joystick.button()).unwrap();
-        io.log();
-        
-        if (joystick.button_pressed()){
-            write!(io.str(), "pressed!!!").unwrap();
+        if (water_sensor.is_read()){
+            writeln!(io.str(), "Water Level: {}", water_sensor.last_data());
             io.log();
         }
     }
