@@ -1,1 +1,0 @@
-Atmega: UsartOps<Atmega, Periph<avr_device::atmega328p::usart0::RegisterBlock, 192>, avr_hal_generic::port::Pin<Input, PD0>>

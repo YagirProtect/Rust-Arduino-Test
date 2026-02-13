@@ -1,2 +1,0 @@
-avr_hal_generic::adc::Adc<Atmega, Periph<avr_device::atmega328p::adc::RegisterBlock, 120>, MHz16>
-avr_hal_generic::adc::Adc<Atmega, Periph<avr_device::atmega328p::adc::RegisterBlock, 120>, MHz16>: AdcChannel<Atmega, Periph<avr_device::atmega328p::adc::RegisterBlock, 120>>

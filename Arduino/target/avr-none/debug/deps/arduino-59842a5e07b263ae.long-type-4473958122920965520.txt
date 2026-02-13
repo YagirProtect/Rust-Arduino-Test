@@ -1,1 +1,0 @@
-for<'a, 'b> fn(&'a mut _, &'b mut _) -> Result<dht_sensor::dht11::Reading, DhtError<<_ as embedded_hal::digital::ErrorType>::Error>> {dht_sensor::dht11::blocking::read::<_, _>}

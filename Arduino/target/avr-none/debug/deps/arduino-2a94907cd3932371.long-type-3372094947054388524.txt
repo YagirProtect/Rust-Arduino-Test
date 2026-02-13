@@ -1,1 +1,0 @@
-avr_hal_generic::adc::Channel<Atmega, Periph<avr_device::atmega328p::adc::RegisterBlock, 120>>

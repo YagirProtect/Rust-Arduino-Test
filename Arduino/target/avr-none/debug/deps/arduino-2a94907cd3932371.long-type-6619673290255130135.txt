@@ -1,1 +1,0 @@
-avr_hal_generic::port::Pin<Input<PullUp>, Z>: AdcChannel<Atmega, Periph<avr_device::atmega328p::adc::RegisterBlock, 120>>
