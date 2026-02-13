@@ -4,10 +4,12 @@
 use core::fmt::Write;
 use panic_halt as _;
 use crate::joystick::Joystick;
+use crate::light_sensor::LightSensor;
 
 mod std;
 mod joystick;
 mod water_sensor;
+mod light_sensor;
 
 use crate::std::global_timer::GlobalTimer;
 use crate::std::io::IoUno;
@@ -25,19 +27,23 @@ fn main() -> ! {
     enable_interrupts();
 
 
-    let mut power = pins.d7.into_output();
     let analog0 = pins.a0.into_analog_input(&mut adc);
+    let mut power = pins.d7.into_output();
 
-    let mut water_sensor = WaterSensorBFS::new(power, analog0, 500);
+    let mut light_sensor = LightSensor::new(Some(power), analog0, 500);
 
-
+    light_sensor.set_power(true);
     loop {
         let now = timer.millis();
-        water_sensor.update(now, &mut adc);
 
-        if (water_sensor.is_read()){
-            writeln!(io.str(), "Water Level: {}", water_sensor.last_data());
-            io.log();
+        light_sensor.update(now, &mut adc);
+        
+        if (light_sensor.is_read()) {
+            if (light_sensor.percent() > 0.3){
+                light_sensor.set_power(false);
+            }
         }
+        writeln!(io.str(), "Light Level: {}", light_sensor.last_data());
+        io.log();
     }
 }
