@@ -1,11 +1,8 @@
-﻿use arduino_hal::port::{mode, Pin, PinOps};
-use arduino_hal::adc::{AdcChannel, Channel};
+﻿use arduino_hal::adc::AdcChannel;
 use arduino_hal::hal::Atmega;
 use arduino_hal::pac::ADC as AdcPeriph;
-use arduino_hal::port::mode::{Analog, Output, PullUp};
-use crate::std::global_timer::GlobalTimer;
-use crate::std::io::IoUno;
-use crate::std::std::enable_interrupts;
+use arduino_hal::port::mode::{Analog, Output};
+use arduino_hal::port::{mode, Pin, PinOps};
 
 const MAX_INPUT_VALUE: u16 = 1024;
 pub struct WaterSensorBFS<PW, OT> {

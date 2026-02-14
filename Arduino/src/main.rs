@@ -2,9 +2,8 @@
 #![no_main]
 #![feature(abi_avr_interrupt)]
 use core::fmt::Write;
-use modules::light_sensor_resistor::LightSensorResistor;
 use panic_halt as _;
-use crate::modules::temperature_sensor_LM25::TemperatureSensorLM25;
+use crate::modules::temperature_sensor_lm25::TemperatureSensorLM25;
 
 mod std;
 mod modules;

@@ -1,4 +1,4 @@
-﻿pub mod water_sensor_BFS;
+﻿pub mod water_sensor_bfs;
 pub mod light_sensor_resistor;
-pub mod temperature_sensor_LM25;
-pub mod joystick_HW504;
+pub mod temperature_sensor_lm25;
+pub mod joystick_hw504;
