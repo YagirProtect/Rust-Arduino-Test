@@ -2,8 +2,9 @@
 #![no_main]
 #![feature(abi_avr_interrupt)]
 use core::fmt::Write;
-use modules::light_sensor::LightSensor;
+use modules::light_sensor_resistor::LightSensorResistor;
 use panic_halt as _;
+use crate::modules::temperature_sensor_LM25::TemperatureSensorLM25;
 
 mod std;
 mod modules;
@@ -23,22 +24,17 @@ fn main() -> ! {
 
 
     let analog0 = pins.a0.into_analog_input(&mut adc);
-    let mut power = pins.d7.into_output();
 
-    let mut light_sensor = LightSensor::new(Some(power), analog0, 500);
+    let mut temperature_sensor = TemperatureSensorLM25::new(analog0, 500);
 
-    light_sensor.set_power(true);
     loop {
         let now = timer.millis();
 
-        light_sensor.update(now, &mut adc);
+        temperature_sensor.update(now, &mut adc);
 
-        if (light_sensor.is_read()) {
-            if (light_sensor.percent() > 0.3){
-                light_sensor.set_power(false);
-            }
-        }
-        writeln!(io.str(), "Light Level: {}", light_sensor.last_data());
+        let (val, frac) = temperature_sensor.to_celsius();
+
+        let _ = writeln!(io.str(), "Temperature: {}.{}C", val, frac);
         io.log();
     }
 }

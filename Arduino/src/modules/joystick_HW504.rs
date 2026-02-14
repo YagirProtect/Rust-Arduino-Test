@@ -6,7 +6,7 @@ use arduino_hal::port::mode::{Analog, PullUp};
 
 const MAX_INPUT_VALUE: u16 = 1024;
 
-pub struct Joystick<X, Y, SW>{
+pub struct JoystickHW504<X, Y, SW>{
     x: u16,
     y: u16,
     tap: bool,
@@ -21,7 +21,7 @@ pub struct Joystick<X, Y, SW>{
     time: u32,
 }
 
-impl<X, Y, SW> Joystick<X, Y, SW>
+impl<X, Y, SW> JoystickHW504<X, Y, SW>
 where
     Pin<Analog, X>: AdcChannel<Atmega, AdcPeriph>,
     Pin<Analog, Y>: AdcChannel<Atmega, AdcPeriph>,

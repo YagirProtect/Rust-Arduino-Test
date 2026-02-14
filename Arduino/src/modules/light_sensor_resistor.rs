@@ -3,12 +3,9 @@ use arduino_hal::hal::Atmega;
 use arduino_hal::pac::ADC as AdcPeriph;
 use arduino_hal::port::mode::{Analog, Output};
 use arduino_hal::port::{mode, Pin, PinOps};
-use crate::std::global_timer::GlobalTimer;
-use crate::std::io::IoUno;
-use crate::std::std::enable_interrupts;
 
 const MAX_INPUT_VALUE: u16 = 512;
-pub struct LightSensor<PW, OT> {
+pub struct LightSensorResistor<PW, OT> {
     power_pin: Option<Pin<mode::Output, PW>>,
     output_pin: Pin<Analog, OT>,
 
@@ -20,7 +17,7 @@ pub struct LightSensor<PW, OT> {
     is_read: bool
 }
 
-impl<PW, OT> LightSensor<PW, OT>
+impl<PW, OT> LightSensorResistor<PW, OT>
 where
     PW: PinOps,
     OT: PinOps,

@@ -13,8 +13,6 @@ bench = false
 [dependencies]
 panic-halt = "1.0.0"
 ufmt = "0.2.0"
-nb = "1.1.0"
-embedded-hal = "1.0"
 avr-device = "0.8.1"
 heapless = "0.9.2"
 
